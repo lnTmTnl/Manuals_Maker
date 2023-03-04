@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!---->
+  <link rel="apple-touch-icon" href="./src/editor/images/icon.png">
+  <link rel="manifest" href="./src/editor/manifest.json">
+  <!---->
+
+  <title>Vite App</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!---->
+  <script type="importmap">
+    {
+    	"imports": {
+    		"three": "../build/three.module.js",
+    		"three/addons/": "../examples/jsm/"
+    	}
+    }
+  </script>
+  <link rel="stylesheet" href="./src/editor/css/main.css">
+
+  <script src="./src/editor/examples/jsm/libs/draco/draco_encoder.js" type="module"></script>
+
+  <link rel="stylesheet" href="./src/editor/js/libs/codemirror/codemirror.css">
+  <link rel="stylesheet" href="./src/editor/js/libs/codemirror/theme/monokai.css">
+  <script src="./src/editor/js/libs/codemirror/codemirror.js" type="module"></script>
+  <script src="./src/editor/js/libs/codemirror/mode/javascript.js" type="module"></script>
+  <script src="./src/editor/js/libs/codemirror/mode/glsl.js" type="module"></script>
+
+  <script src="./src/editor/js/libs/esprima.js" type="module"></script>
+  <script src="./src/editor/js/libs/jsonlint.js" type="module"></script>
+
+  <script src="./src/editor/js/libs/ffmpeg.min.js" defer type="module"></script>
+
+  <link rel="stylesheet" href="./src/editor/js/libs/codemirror/addon/dialog.css">
+  <link rel="stylesheet" href="./src/editor/js/libs/codemirror/addon/show-hint.css">
+  <link rel="stylesheet" href="./src/editor/js/libs/codemirror/addon/tern.css">
+
+  <script src="./src/editor/js/libs/codemirror/addon/dialog.js" type="module"></script>
+  <script src="./src/editor/js/libs/codemirror/addon/show-hint.js" type="module"></script>
+  <script src="./src/editor/js/libs/codemirror/addon/tern.js" type="module"></script>
+  <script src="./src/editor/js/libs/acorn/acorn.js" type="module"></script>
+  <script src="./src/editor/js/libs/acorn/acorn_loose.js" type="module"></script>
+  <script src="./src/editor/js/libs/acorn/walk.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/polyfill.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/signal.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/tern.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/def.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/comment.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/infer.js" type="module"></script>
+  <script src="./src/editor/js/libs/ternjs/doc_comment.js" type="module"></script>
+  <script src="./src/editor/js/libs/tern-threejs/threejs.js" type="module"></script>
+  <script src="./src/editor/js/libs/signals.min.js" type="module"></script>
+
+  <!-- Import maps polyfill -->
+  <!-- Remove this when import maps will be widely supported -->
+  <script async src="./src/editor/js/libs/es-module-shims.js" type="module"></script>
+
+  <script src="/src/main.js" type="module"></script>
+</body>
+
+</html>
