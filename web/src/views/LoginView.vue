@@ -93,7 +93,7 @@ async function login() {
   axios
     .post("/login", model.value)
     .then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res !== null && res.data.state === 1) {
         ElMessage.success("Login successfull")
         router.replace({

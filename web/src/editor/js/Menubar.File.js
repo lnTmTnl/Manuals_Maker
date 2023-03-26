@@ -4,7 +4,14 @@ import { zipSync, strToU8 } from "three/addons/libs/fflate.module.js"
 
 import { UIPanel, UIRow, UIHorizontalRule } from "./libs/ui.js"
 
+import { ref } from "@vue/reactivity"
+import axios from "axios"
+import { useRoute } from "vue-router"
+
 function MenubarFile(editor) {
+  const route = useRoute()
+  const userid = route.params.userid
+
   const config = editor.config
   const strings = editor.strings
 
@@ -38,6 +45,8 @@ function MenubarFile(editor) {
 
   // Import
 
+  const importDisplay = ref(false)
+  container.importDisplay = importDisplay
   const form = document.createElement("form")
   form.style.display = "none"
   document.body.appendChild(form)
@@ -55,7 +64,8 @@ function MenubarFile(editor) {
   option.setClass("option")
   option.setTextContent(strings.getKey("menubar/file/import"))
   option.onClick(function () {
-    fileInput.click()
+    importDisplay.value = true
+    //fileInput.click()
   })
   options.add(option)
 
@@ -374,7 +384,7 @@ function MenubarFile(editor) {
   option.setClass("option")
   option.setTextContent(strings.getKey("menubar/file/publish"))
   option.onClick(function () {
-    const toZip = {}
+    // const toZip = {}
 
     //
 
@@ -385,57 +395,63 @@ function MenubarFile(editor) {
     output = JSON.stringify(output, null, "\t")
     output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, "$1")
 
-    toZip["app.json"] = strToU8(output)
+    const path = "/" + userid
+
+    axios
+      .post("/onlinePublish", { path, content: output })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((res) => console.log(res))
+
+    // toZip["app.json"] = strToU8(output)
 
     //
 
-    const title = config.getKey("project/title")
+    // const title = config.getKey("project/title")
 
-    const manager = new THREE.LoadingManager(function () {
-      const zipped = zipSync(toZip, { level: 9 })
+    // const manager = new THREE.LoadingManager(function () {
+    //   const zipped = zipSync(toZip, { level: 9 })
 
-      const blob = new Blob([zipped.buffer], { type: "application/zip" })
+    //   const blob = new Blob([zipped.buffer], { type: "application/zip" })
 
-      save(blob, (title !== "" ? title : "untitled") + ".zip")
-    })
+    //   save(blob, (title !== "" ? title : "untitled") + ".zip")
+    // })
 
-    const loader = new THREE.FileLoader(manager)
-    loader.load("src/editor/js/libs/app/index.txt", function (content) {
-      content = content.replace("<!-- title -->", title)
+    // const loader = new THREE.FileLoader(manager)
+    // loader.load("/editor/build_template/index.txt", function (content) {
+    //   content = content.replace("<!-- title -->", title)
 
-      const includes = []
+    //   const includes = []
 
-      content = content.replace("<!-- includes -->", includes.join("\n\t\t"))
+    //   content = content.replace("<!-- includes -->", includes.join("\n\t\t"))
 
-      let editButton = ""
+    //   let editButton = ""
 
-      if (config.getKey("project/editable")) {
-        editButton = [
-          "			let button = document.createElement( 'a' );",
-          "			button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';",
-          "			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 10px 16px; color: #fff; border: 1px solid #fff; border-radius: 20px; text-decoration: none;';",
-          "			button.target = '_blank';",
-          "			button.textContent = 'EDIT';",
-          "			document.body.appendChild( button );",
-        ].join("\n")
-      }
+    //   if (config.getKey("project/editable")) {
+    //     editButton = [
+    //       "			let button = document.createElement( 'a' );",
+    //       "			button.href = 'https://threejs.org/editor/#file=' + location.href.split( '/' ).slice( 0, - 1 ).join( '/' ) + '/app.json';",
+    //       "			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 10px 16px; color: #fff; border: 1px solid #fff; border-radius: 20px; text-decoration: none;';",
+    //       "			button.target = '_blank';",
+    //       "			button.textContent = 'EDIT';",
+    //       "			document.body.appendChild( button );",
+    //     ].join("\n")
+    //   }
 
-      content = content.replace("\t\t\t/* edit button */", editButton)
+    //   content = content.replace("\t\t\t/* edit button */", editButton)
 
-      toZip["index.html"] = strToU8(content)
-    })
-    loader.load("src/editor/js/libs/app.js", function (content) {
-      toZip["js/app.js"] = strToU8(content)
-    })
-    loader.load("src/editor/build/three.module.js", function (content) {
-      toZip["js/three.module.js"] = strToU8(content)
-    })
-    loader.load(
-      "src/editor/examples/jsm/webxr/VRButton.js",
-      function (content) {
-        toZip["js/VRButton.js"] = strToU8(content)
-      }
-    )
+    //   toZip["index.html"] = strToU8(content)
+    // })
+    // loader.load("/editor/build_template/app.txt", function (content) {
+    //   toZip["js/app.js"] = strToU8(content)
+    // })
+    // loader.load("/editor/build_template/three.module.txt", function (content) {
+    //   toZip["js/three.module.js"] = strToU8(content)
+    // })
+    // loader.load("/editor/build_template/VRButton.txt", function (content) {
+    //   toZip["js/VRButton.js"] = strToU8(content)
+    // })
   })
   options.add(option)
 

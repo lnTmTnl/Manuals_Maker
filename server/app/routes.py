@@ -1,10 +1,8 @@
 from flask import request, render_template, jsonify
 from app import app
-from sql import db, Users, Projects, Manuals
+from sql import db, Users
 from sqlalchemy import select, and_
-
-def toJsonRes(data, state):
-    return jsonify({'data': [i.getDict() for i in data], 'state': state})
+from tools import toJsonRes
 
 @app.route("/", methods=["GET", "POST"])
 def home():

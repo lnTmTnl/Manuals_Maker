@@ -22,4 +22,10 @@ body {
   padding: 0;
   margin: 0;
 }
+
+.ellipsis-hidden {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 </style>

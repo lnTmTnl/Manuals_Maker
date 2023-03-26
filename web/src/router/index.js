@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router"
 import LoginView from "@/views/LoginView.vue"
 import ProfileView from "@/views/ProfileView.vue"
+import ManualView from "@/views/ManualView.vue"
 import ThreeEditorComponent from "@/editor/ThreeEditorComponent.vue"
 import ProjectsContainer from "@/components/ProjectsContainer.vue"
+import ResourcesContainer from "@/components/ResourcesContainer.vue"
 import ManualsContainer from "@/components/ManualsContainer.vue"
 import AccountContainer from "@/components/AccountContainer.vue"
 import SettingsContainer from "@/components/SettingsContainer.vue"
@@ -29,6 +31,11 @@ const router = createRouter({
           component: ProjectsContainer,
         },
         {
+          path: "resources",
+          name: "resources",
+          component: ResourcesContainer,
+        },
+        {
           path: "manuals",
           name: "manuals",
           component: ManualsContainer,
@@ -46,9 +53,14 @@ const router = createRouter({
       ],
     },
     {
-      path: "/editor/:userid",
+      path: "/editor/:userid/:projectid",
       name: "editor",
       component: ThreeEditorComponent,
+    },
+    {
+      path: "/manual/:manualid",
+      name: "manual",
+      component: ManualView,
     },
   ],
 })

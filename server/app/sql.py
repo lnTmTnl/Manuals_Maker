@@ -23,6 +23,12 @@ class Users(db.Model):
         return {i.name: getattr(self, i.name) for i in self.__table__.columns}
 
 class Projects(db.Model):
+    def __init__(self, id, userid, name, content):
+        self.id = id
+        self.userid = userid
+        self.name = name
+        self.content = content
+
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey(Users.id))
     name = db.Column(db.String, unique=False)
@@ -35,6 +41,16 @@ class Manuals(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey(Users.id))
     name = db.Column(db.String, unique=False)
+    content = db.Column(db.JSON, unique=False)
+
+    def getDict(self):
+        return {i.name: getattr(self, i.name) for i in self.__table__.columns}
+
+class Resources(db.Model):
+    def __init__(self, userid, content):
+        self.userid = userid
+        self.content = content
+    userid = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.JSON, unique=False)
 
     def getDict(self):

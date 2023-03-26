@@ -11,6 +11,7 @@
 
 <script setup>
 import { onMounted, ref } from "@vue/runtime-core"
+import { useRouter, useRoute } from "vue-router"
 import * as THREE from "three"
 
 import { Editor } from "./js/Editor.js"
@@ -29,10 +30,23 @@ import Script from "@/editor/components/Script.vue"
 // import Player from '@/editor/components/Player.vue'
 import SideBar from "@/editor/components/SideBar.vue"
 import MenuBar from "@/editor/components/MenuBar.vue"
+import axios from "axios"
 
 const threeEditor = ref(null)
 
 const editor = new Editor()
+
+const router = useRouter()
+const route = useRoute()
+
+const userid = parseInt(route.params.userid)
+const id = parseInt(route.params.projectid)
+const model = ref({
+  id,
+  userid,
+  name: "",
+  content: {},
+})
 
 onMounted(() => {
   window.URL = window.URL || window.webkitURL
@@ -74,24 +88,44 @@ onMounted(() => {
   //
 
   editor.storage.init(function () {
-    editor.storage.get(function (state) {
-      if (isLoadingFromHash) return
+    axios
+      .post("/getAProject", model.value)
+      .then((res) => {
+        if (res.data.state !== 0) {
+          const data = res.data.data
+          model.value.name = data.name
+          model.value.content = data.content
+          // console.log(2, model.value.content)
+          editor.fromJSON(model.value.content)
+        } else {
+          console.log("error")
+        }
+      })
+      .catch((res) => {
+        console.log(res)
+      })
 
-      if (state !== undefined) {
-        editor.fromJSON(state)
-      }
+    // editor.storage.get(function (state) {
+    //   if (isLoadingFromHash) return
 
-      const selected = editor.config.getKey("selected")
+    //   if (state !== undefined) {
+    //     console.log(0, model.value.content)
+    //     console.log(1, state)
+    //     editor.fromJSON(state)
+    //   }
 
-      if (selected !== undefined) {
-        editor.selectByUuid(selected)
-      }
-    })
+    //   const selected = editor.config.getKey("selected")
+
+    //   if (selected !== undefined) {
+    //     editor.selectByUuid(selected)
+    //   }
+    // })
 
     //
 
     let timeout
 
+    //保存项目
     function saveState() {
       if (editor.config.getKey("autosave") === false) {
         return
@@ -103,7 +137,16 @@ onMounted(() => {
         editor.signals.savingStarted.dispatch()
 
         timeout = setTimeout(function () {
-          editor.storage.set(editor.toJSON())
+          //editor.storage.set(editor.toJSON())
+          model.value.content = editor.toJSON()
+          axios
+            .post("/updateProjects", model.value)
+            .then((res) => {
+              console.log("saved")
+            })
+            .catch((res) => {
+              console.log(res)
+            })
 
           editor.signals.savingFinished.dispatch()
         }, 100)

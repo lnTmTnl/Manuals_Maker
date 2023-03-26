@@ -49,7 +49,6 @@ function Config() {
       }
 
       window.localStorage[name] = JSON.stringify(storage)
-      console.log(storage)
 
       console.log(
         "[" + /\d\d\:\d\d\:\d\d/.exec(new Date())[0] + "]",

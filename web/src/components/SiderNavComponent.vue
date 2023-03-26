@@ -13,6 +13,10 @@
         <el-icon><Box /></el-icon>
         <template #title>Projects</template>
       </el-menu-item>
+      <el-menu-item index="resources">
+        <el-icon><IconFiles /></el-icon>
+        <template #title>Resources</template>
+      </el-menu-item>
       <el-menu-item index="manuals">
         <el-icon><Reading /></el-icon>
         <template #title>Manuals</template>
@@ -34,6 +38,7 @@ import { ref } from "vue"
 import {
   Menu as IconMenu,
   Box,
+  Files as IconFiles,
   Reading,
   User,
   Setting,

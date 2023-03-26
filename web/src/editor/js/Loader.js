@@ -463,6 +463,7 @@ function Loader(editor) {
           },
           false
         )
+        //console.log(file)
         reader.readAsText(file)
 
         break

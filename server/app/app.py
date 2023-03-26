@@ -6,10 +6,12 @@ app = Flask(__name__,
             static_url_path="")
 
 import routes
-
-
+from projects import projects_bp
+from resources import resources_bp
 from sql import db
 
+app.register_blueprint(projects_bp)
+app.register_blueprint(resources_bp)
 
 with app.app_context():
   db.create_all()
