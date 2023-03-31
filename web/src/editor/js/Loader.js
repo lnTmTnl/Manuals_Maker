@@ -548,6 +548,7 @@ function Loader(editor) {
         )
 
         if (reader.readAsBinaryString !== undefined) {
+          console.log(file)
           reader.readAsBinaryString(file)
         } else {
           reader.readAsArrayBuffer(file)

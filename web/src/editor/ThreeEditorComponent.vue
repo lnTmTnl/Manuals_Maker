@@ -1,11 +1,14 @@
 <template>
   <div id="three-editor" ref="threeEditor">
-    <ViewPort :editor="editor"></ViewPort>
-    <ToolBar :editor="editor"></ToolBar>
-    <Script :editor="editor"></Script>
-    <!-- <Player :editor="editor"></Player> -->
-    <SideBar :editor="editor"></SideBar>
-    <MenuBar :editor="editor"></MenuBar>
+    <div>
+      <ViewPort :editor="editor"></ViewPort>
+      <ToolBar :editor="editor"></ToolBar>
+      <Script :editor="editor"></Script>
+      <!-- <Player :editor="editor"></Player> -->
+      <SideBar :editor="editor"></SideBar>
+      <MenuBar :editor="editor"></MenuBar>
+      <el-button type="primary" id="back-btn" @click="onBack">返回</el-button>
+    </div>
   </div>
 </template>
 
@@ -225,6 +228,15 @@ onMounted(() => {
     } catch (error) {}
   }
 })
+
+function onBack() {
+  router.replace({ path: `/profile/${userid}/projects` })
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+#back-btn {
+  z-index: 999;
+  float: right;
+}
+</style>

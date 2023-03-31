@@ -1,7 +1,7 @@
 function judgeResourceType(fileName) {
   const extension = fileName.split(".").pop().toLowerCase()
 
-  if (["obj", "fbx"].includes(extension)) {
+  if (["obj", "fbx", "stl"].includes(extension)) {
     return "model"
   } else if (["avi", "mp4"].includes(extension)) {
     return "video"

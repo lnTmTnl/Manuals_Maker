@@ -56,7 +56,6 @@ def update_resources():
 def upload_resources():
     routes_path = request.form.get('path')
     files = request.files.getlist('file')
-    print(len(files))
     path_url = app.config['UPLOAD_FOLDER'] + routes_path
     paths = []
     if(not os.path.exists(path_url)):
@@ -82,13 +81,14 @@ def download_file(paths):
     return send_from_directory(app.config["UPLOAD_FOLDER"], paths)
 
 
-@resources_bp.route('/getFile', methods=['POST'])
-def get_file():
-    path = request.json.get('path')
-    filename = secure_filename(request.json.get('filename'))
-    directory = os.path.join(app.root_path, 'uploaded_resources'+path)
+@resources_bp.route('/getFile/<path:filename>')
+def get_file(filename):
+    print(filename)
+    # path = request.json.get('path')
+    # filename = secure_filename(request.json.get('filename'))
+    directory = os.path.join(app.root_path, 'uploaded_resources')
     try:
-        response = make_response(send_from_directory(directory, filename, as_attachment=True))
+        response = send_from_directory(directory, filename, as_attachment=True)
         return response
     except Exception as e:
         return jsonify({'message':'{}'.format(e)})

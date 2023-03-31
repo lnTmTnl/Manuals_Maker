@@ -65,7 +65,7 @@ function MenubarFile(editor) {
   option.setTextContent(strings.getKey("menubar/file/import"))
   option.onClick(function () {
     importDisplay.value = true
-    //fileInput.click()
+    fileInput.click()
   })
   options.add(option)
 
@@ -380,6 +380,9 @@ function MenubarFile(editor) {
 
   // Publish
 
+  const publishDisplay = ref(false)
+  container.publishDisplay = publishDisplay
+
   option = new UIRow()
   option.setClass("option")
   option.setTextContent(strings.getKey("menubar/file/publish"))
@@ -388,21 +391,7 @@ function MenubarFile(editor) {
 
     //
 
-    let output = editor.toJSON()
-    output.metadata.type = "App"
-    delete output.history
-
-    output = JSON.stringify(output, null, "\t")
-    output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, "$1")
-
-    const path = "/" + userid
-
-    axios
-      .post("/onlinePublish", { path, content: output })
-      .then((res) => {
-        console.log(res.data)
-      })
-      .catch((res) => console.log(res))
+    publishDisplay.value = true
 
     // toZip["app.json"] = strToU8(output)
 

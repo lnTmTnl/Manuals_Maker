@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
+import { SetScriptValueCommand } from "@/editor/js/commands/SetScriptValueCommand.js"
 import BlocklyComponent from "@/components/BlocklyComponent.vue"
 import { Script } from "@/editor/js/Script.js"
 import { reactive, ref, toRaw } from "@vue/reactivity"
@@ -40,6 +41,16 @@ function showCode(code) {
   //console.log(script.codemirror.getDoc().setValue)
   toRaw(script.codemirror).setValue(code.value)
   blocklyComponent.value.saveBlocks(currentScript.value)
+  // props.editor.execute(
+  //   new SetScriptValueCommand(
+  //     props.editor,
+  //     props.editor.selected,
+  //     script,
+  //     "source",
+  //     code.value
+  //   )
+  // )
+  props.editor.signals.scriptChanged.dispatch()
 }
 </script>
 

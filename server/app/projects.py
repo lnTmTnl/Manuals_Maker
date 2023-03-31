@@ -52,19 +52,4 @@ def update_projects():
         db.session.commit()
     return toJsonRes(res, 1)
 
-
-@projects_bp.route('/onlinePublish', methods=["POST"])
-def online_publish():
-    path = request.json.get('path')
-    content = request.json.get('content')
-    manualid = uuid1()
-    path_url = app.config['Publish_FOLDER'] + path
-    try:
-        if(not os.path.exists(path_url)):
-            os.makedirs(path_url)
-        file = open(path_url + '/'+ str(manualid) +'.json', 'w')
-        file.write(content)
-        return jsonify({'manualid': manualid, 'content': content, 'state': 1})
-    except Exception as e:
-        return jsonify({'message':'{}'.format(e)})
     

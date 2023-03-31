@@ -71,7 +71,7 @@ function Script(editor) {
 
   codemirror.setOption("theme", "monokai")
   codemirror.on("change", function () {
-    if (codemirror.state.focused === false) return
+    // if (codemirror.state.focused === false) return
 
     clearTimeout(delay)
     delay = setTimeout(function () {

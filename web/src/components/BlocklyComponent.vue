@@ -6,8 +6,8 @@
     </xml>
     </div>
     <p id="code">
-      <button v-on:click="showCode">Show JavaScript</button>
-      <button v-on:click="runCode">Run Code</button>
+      <button v-on:click="showCode">Save Script</button>
+      <!-- <button v-on:click="runCode">Run Code</button> -->
       <pre v-html="code"></pre>
     </p>
   </div>
@@ -63,7 +63,7 @@ function runCode() {
 }
 
 function saveBlocks(script) {
-  console.log(script)
+  // console.log(script)
   script.blocksJson = Blockly.serialization.workspaces.save(workspace)
 }
 

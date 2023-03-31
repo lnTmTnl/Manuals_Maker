@@ -1,0 +1,166 @@
+{
+	"metadata": {
+		"type": "App"
+	},
+	"project": {
+		"shadows": true,
+		"shadowType": 1,
+		"vr": false,
+		"physicallyCorrectLights": false,
+		"toneMapping": 0,
+		"toneMappingExposure": 1
+	},
+	"camera": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"object": {
+			"uuid": "64697edc-a91d-4780-b528-732639cbd218",
+			"type": "PerspectiveCamera",
+			"name": "Camera",
+			"layers": 1,
+			"matrix": [0.9997999944601735,0,-0.019999276922828702,0,-0.009228993549366292,0.8871577071904501,-0.4613740654291769,0,0.01774251266032362,0.46146636125787216,0.8869802707343136,0,0.14749637168812074,3.8362443496441183,7.373610164292934,1],
+			"fov": 50,
+			"zoom": 1,
+			"near": 0.01,
+			"far": 1000,
+			"focus": 10,
+			"aspect": 1.3304347826086957,
+			"filmGauge": 35,
+			"filmOffset": 0
+		}
+	},
+	"scene": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"geometries": [
+			{
+				"uuid": "35fe5501-b8c3-4e7a-933d-e492f1172a10",
+				"type": "BufferGeometry",
+				"data": {
+					"attributes": {
+						"normal": {
+							"itemSize": 3,
+							"type": "Float32Array",
+							"array": [1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1,0,0,-1],
+							"normalized": false
+						},
+						"position": {
+							"itemSize": 3,
+							"type": "Float32Array",
+							"array": [0.5,0.5,0.5,0.5,-0.5,0.5,0.5,0.5,-0.5,0.5,-0.5,0.5,0.5,-0.5,-0.5,0.5,0.5,-0.5,-0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,0.5,-0.5,0.5,0.5,-0.5,0.5,-0.5,-0.5,0.5,0.5,0.5,0.5,-0.5,-0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-0.5,-0.5,-0.5,0.5,-0.5,-0.5,-0.5,0.5,-0.5,0.5,-0.5,-0.5,-0.5,0.5,-0.5,-0.5,0.5,-0.5,0.5,-0.5,0.5,0.5,-0.5,-0.5,0.5,0.5,0.5,0.5,-0.5,-0.5,0.5,0.5,-0.5,0.5,0.5,0.5,0.5,0.5,0.5,-0.5,0.5,-0.5,-0.5,-0.5,0.5,-0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5,0.5,-0.5],
+							"normalized": false
+						},
+						"uv": {
+							"itemSize": 2,
+							"type": "Float32Array",
+							"array": [0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1,0,1,0,0,1,1,0,0,1,0,1,1],
+							"normalized": false
+						}
+					},
+					"boundingSphere": {
+						"center": [0,0,0],
+						"radius": 0.8660254037844386
+					}
+				}
+			}],
+		"materials": [
+			{
+				"uuid": "e9d92776-93e9-46ac-9035-4f32f2108ee7",
+				"type": "MeshPhongMaterial",
+				"color": 16777215,
+				"emissive": 0,
+				"specular": 1118481,
+				"shininess": 30,
+				"reflectivity": 1,
+				"refractionRatio": 0.98,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true,
+				"colorWrite": true,
+				"stencilWrite": false,
+				"stencilWriteMask": 255,
+				"stencilFunc": 519,
+				"stencilRef": 0,
+				"stencilFuncMask": 255,
+				"stencilFail": 7680,
+				"stencilZFail": 7680,
+				"stencilZPass": 7680
+			}],
+		"object": {
+			"uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
+			"type": "Scene",
+			"name": "Scene",
+			"layers": 1,
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"background": 9209735,
+			"children": [
+				{
+					"uuid": "ccdaecfe-5349-4eef-bfd0-520eade440b6",
+					"type": "Group",
+					"name": "model.obj",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+				},
+				{
+					"uuid": "5664e3cd-3677-43c0-a37d-c5bcb6cd62a7",
+					"type": "Group",
+					"name": "model.obj",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"children": [
+						{
+							"uuid": "6718c3e1-d9dd-41eb-92c4-9e637ac437b5",
+							"type": "Mesh",
+							"name": "Box",
+							"layers": 1,
+							"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+							"geometry": "35fe5501-b8c3-4e7a-933d-e492f1172a10",
+							"material": "e9d92776-93e9-46ac-9035-4f32f2108ee7"
+						}]
+				}],
+			"fog": {
+				"type": "FogExp2",
+				"color": 16711680,
+				"density": 0.05
+			}
+		}
+	},
+	"scripts": {
+		"6718c3e1-d9dd-41eb-92c4-9e637ac437b5": [
+			{
+				"name": "test",
+				"source": "function update(event) {\n\n  this.rotation.x += 1;\n  this.rotation.y += 1;\n  this.rotation.z += 1;\n\n};\n",
+				"blocksJson": {
+					"blocks": {
+						"languageVersion": 0,
+						"blocks": [
+							{
+								"type": "update",
+								"id": "3tOzgS*7rSTVCTD.X5zB",
+								"x": 113,
+								"y": 37,
+								"inputs": {
+									"DO": {
+										"block": {
+											"type": "rotate",
+											"id": "9O(a[;kYCfR^^gEldv%d",
+											"fields": {
+												"X": 1,
+												"Y": 1,
+												"Z": 1
+											}
+										}
+									}
+								}
+							}]
+					}
+				}
+			}]
+	}
+}
