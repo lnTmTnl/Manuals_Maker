@@ -8,6 +8,7 @@
 import * as THREE from "@/editor/build/three.module.js"
 import { APP } from "@/editor/js/libs/app.js"
 import { VRButton } from "@/editor/examples/jsm/webxr/VRButton.js"
+import { ManualUI } from "@/editor/js/ManualUI.js"
 import { onMounted, reactive, ref } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import axios from "axios"
@@ -22,6 +23,7 @@ window.VRButton = VRButton // Used by APP Scripts.
 
 // const loader = new THREE.FileLoader()
 const player = new APP.Player()
+const manualUI = new ManualUI(player)
 
 onMounted(() => {
   axios
@@ -32,6 +34,8 @@ onMounted(() => {
       player.setSize(window.innerWidth, window.innerHeight)
       player.play()
       document.body.appendChild(player.dom)
+      player.dom.style.position = "relative"
+      player.dom.appendChild(manualUI.dom)
       window.addEventListener("resize", function () {
         player.setSize(window.innerWidth, window.innerHeight)
       })

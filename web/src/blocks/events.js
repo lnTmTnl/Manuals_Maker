@@ -45,6 +45,20 @@ Blockly.defineBlocksWithJsonArray([
     nextStatement: null,
     style: "colour_blocks",
   },
+  {
+    type: "separate",
+    message0: "separate",
+    message1: "do %1",
+    args1: [
+      {
+        type: "input_statement",
+        name: "DO",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    style: "colour_blocks",
+  },
 ])
 
 javascriptGenerator["update"] = function (block) {
@@ -90,6 +104,18 @@ function pointermove(event) {
   return code
 }
 
+javascriptGenerator["separate"] = function (block) {
+  const DO = javascriptGenerator.statementToCode(block, "DO")
+
+  const code = `
+function separate(event) {
+  console.log(event)
+  ${DO}
+};
+  `
+  return code
+}
+
 const eventBlocks = {
   kind: "category",
   name: "event",
@@ -105,6 +131,10 @@ const eventBlocks = {
     {
       kind: "block",
       type: "movePointer",
+    },
+    {
+      kind: "block",
+      type: "separate",
     },
   ],
   colour: "210",

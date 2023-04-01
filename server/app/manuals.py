@@ -73,3 +73,21 @@ def get_a_manual_info():
         data = res[0].getDict()
         userid = data.get('userid')
         return jsonify({'userid': userid, 'state': 1})
+
+@manuals_bp.route('/deleteAManual/<path:manualid>', methods=['DELETE'])
+def delete_a_manual(manualid):
+    res = db.session.scalars(select(Manuals).where(and_(Manuals.id == manualid))).all()
+    if(len(res) == 0):
+        state = 0
+        return jsonify({state: 0})
+    else:
+        data = res[0].getDict()
+        userid = data.get('userid')
+        directory = os.path.join(app.root_path, 'published_manuals'+ '/' + str(userid))
+        try:
+            os.remove(directory + '/' + manualid + '.json')
+            Manuals.query.filter_by(id=manualid).delete()
+            db.session.commit()
+            return jsonify({'message': 'File deleted successfully'})
+        except Exception as e:
+            return jsonify({'error': str(e)})

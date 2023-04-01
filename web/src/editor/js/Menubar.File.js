@@ -65,7 +65,7 @@ function MenubarFile(editor) {
   option.setTextContent(strings.getKey("menubar/file/import"))
   option.onClick(function () {
     importDisplay.value = true
-    fileInput.click()
+    // fileInput.click()
   })
   options.add(option)
 

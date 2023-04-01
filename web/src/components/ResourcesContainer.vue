@@ -19,6 +19,7 @@
       <el-button type="primary" @click="createFolderDialogVisible = true"
         >新建</el-button
       >
+      <el-button type="danger" @click="onDeleteClick">删除</el-button>
 
       <!-- 新建目录对话框 -->
       <el-dialog
@@ -75,7 +76,7 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from "vue"
 import { useRouter, useRoute } from "vue-router"
-import { ElMessage } from "element-plus"
+import { ElMessage, ElMessageBox } from "element-plus"
 import axios from "axios"
 import ResourceItem from "@/components/Resources/ResourceItem.vue"
 import UploadDialog from "@/components/Resources/UploadDialog.vue"
@@ -105,6 +106,12 @@ const model = ref({
 })
 
 onMounted(() => {
+  getAResources()
+})
+
+const resourceRoutes = ref(["root"])
+
+function getAResources() {
   axios
     .post("/getAResources", model.value)
     .then((res) => {
@@ -115,16 +122,29 @@ onMounted(() => {
     .catch((res) => {
       console.log(res)
     })
-})
-
-const resourceRoutes = ref(["root"])
+}
 
 function openResourceFile(resource) {
   const name = resource.name
   const content = resource.content
 
+  checkedResources.value = []
+
   resourceRoutes.value.push(name)
   currentResources.value = content
+}
+
+function updateResources() {
+  model.value.content = rootResources[0].content
+  axios
+    .post("/updateResources", model.value)
+    .then((res) => {
+      console.log(res.data)
+      getAResources()
+    })
+    .catch((res) => {
+      console.log(res)
+    })
 }
 
 function uploadResources(newFiles) {
@@ -137,14 +157,12 @@ function uploadResources(newFiles) {
   // console.log(CurrentFolder.value)
   // currentResources.value = currentResources.value.concat(newFiles)
   // console.log(newFiles)
-  console.log(rootResources[0])
   //console.log(loadResource(rootResources[0].content[0].content))
-  model.value.content = rootResources[0].content
+
   let formData = new FormData()
   formData.append("userid", userid)
   formData.append("path", getFolderPathUrl())
   newFiles.forEach((file) => {
-    console.log(file.content)
     formData.append("file", file.content)
   })
   axios
@@ -157,14 +175,7 @@ function uploadResources(newFiles) {
       newFiles.forEach((file) => {
         file.path = res.data
       })
-      axios
-        .post("/updateResources", model.value)
-        .then((res) => {
-          console.log(res.data)
-        })
-        .catch((res) => {
-          console.log(res)
-        })
+      updateResources()
     })
     .catch((res) => {
       console.log(res)
@@ -181,7 +192,12 @@ function createFolder(name) {
   let formData = new FormData()
   formData.append("path", newPath)
   // currentResources.value.push({ name, type: "folder", content: [] })
-  CurrentFolder.value.content.push({ name, type: "folder", content: [] })
+  CurrentFolder.value.content.push({
+    name,
+    path: getFolderPathUrl(),
+    type: "folder",
+    content: [],
+  })
   axios
     .post("/createNewFolder", formData, {
       headers: {
@@ -189,7 +205,7 @@ function createFolder(name) {
       },
     })
     .then((res) => {
-      console.log("uploaded")
+      updateResources()
     })
     .catch((res) => {
       console.log(res)
@@ -218,6 +234,7 @@ function confirmCreateFolderDialog(flag) {
 }
 
 function resourceBreadcrumbClick(index) {
+  checkedResources.value = []
   resourceRoutes.value.splice(index + 1)
   const targetFolder = ref()
   let current_folder = rootResources
@@ -252,6 +269,37 @@ function getFolderPathUrl() {
     .reduce((pre, cur) => pre + "/" + cur, "/" + userid)
   console.log(url)
   return url
+}
+
+function onDeleteClick() {
+  ElMessageBox.confirm("确认删除?", "Warning", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      const filenames = checkedResources.value.map(
+        (resource) => resource.path + "/" + resource.name
+      )
+      deleteResources(filenames)
+    })
+    .catch(() => {})
+}
+
+function deleteResources(filenames) {
+  axios
+    .delete("/deleteResource", { data: { filenames } })
+    .then(function (res) {
+      const CurrentFolder = findCurrentFolder()
+      CurrentFolder.value.content = CurrentFolder.value.content.filter(
+        (item) => !checkedResources.value.includes(item)
+      )
+      updateResources()
+      getAResources()
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 
 defineExpose({

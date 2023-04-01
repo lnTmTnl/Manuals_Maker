@@ -31,6 +31,7 @@ import { APP } from "@/editor/js/libs/app.js"
 import { VRButton } from "@/editor/examples/jsm/webxr/VRButton.js"
 import { onMounted, reactive, ref } from "vue"
 import { useRouter, useRoute } from "vue-router"
+import { ElMessage, ElMessageBox } from "element-plus"
 import axios from "axios"
 
 const router = useRouter()
@@ -43,6 +44,10 @@ const model = ref({
 })
 
 onMounted(() => {
+  getAllManuals()
+})
+
+function getAllManuals() {
   axios
     .post("/getAllManuals", model.value)
     .then((res) => {
@@ -51,7 +56,7 @@ onMounted(() => {
     .catch((res) => {
       console.log(res)
     })
-})
+}
 
 function onViewClick(row) {
   const userid = row.userid
@@ -62,7 +67,27 @@ function onViewClick(row) {
 function onDeleteClick(row) {
   const userid = row.userid
   const manualid = row.id
-  console.log(userid, manualid)
+  ElMessageBox.confirm("确认删除?", "Warning", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  })
+    .then(() => {
+      deleteManual(manualid)
+    })
+    .catch(() => {})
+}
+
+function deleteManual(manualid) {
+  axios
+    .delete("/deleteAManual/" + manualid)
+    .then(function (res) {
+      console.log(res)
+      getAllManuals()
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
 }
 </script>
 

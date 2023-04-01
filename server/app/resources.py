@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, jsonify, redirect, url_for, send_from_directory, make_response
 from werkzeug.utils import secure_filename
 import os
+import shutil
 from app import app
 from sql import db, Resources
 from sqlalchemy import select, and_
@@ -83,7 +84,6 @@ def download_file(paths):
 
 @resources_bp.route('/getFile/<path:filename>')
 def get_file(filename):
-    print(filename)
     # path = request.json.get('path')
     # filename = secure_filename(request.json.get('filename'))
     directory = os.path.join(app.root_path, 'uploaded_resources')
@@ -92,3 +92,18 @@ def get_file(filename):
         return response
     except Exception as e:
         return jsonify({'message':'{}'.format(e)})
+
+@resources_bp.route('/deleteResource', methods=['DELETE'])
+def delete_resource():
+    filenames = request.json['filenames']
+    directory = os.path.join(app.root_path, 'uploaded_resources')
+    try:
+        for filename in filenames:
+            path_url = directory + filename
+            if os.path.isdir(path_url):
+                shutil.rmtree(path_url)
+            else:
+                os.remove(path_url)
+        return jsonify({'message': 'Files deleted successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)})
