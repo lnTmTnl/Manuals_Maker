@@ -1,0 +1,192 @@
+{
+  "scene": {
+    "object": {
+      "name": "Scene",
+      "type": "Scene",
+      "uuid": "31517222-A9A7-4EAF-B5F6-60751C0BABA3",
+      "layers": 1,
+      "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+      "children": [
+        {
+          "name": "HemisphereLight",
+          "type": "HemisphereLight",
+          "uuid": "c5b545d3-35db-4efe-97fe-bb46c619a85b",
+          "color": 16777215,
+          "layers": 1,
+          "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "intensity": 1,
+          "groundColor": 0
+        },
+        {
+          "name": "model.obj",
+          "type": "Group",
+          "uuid": "2df7f4ec-1133-41e3-83ec-824d68b09f9a",
+          "layers": 1,
+          "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+          "children": [
+            {
+              "name": "Box",
+              "type": "Mesh",
+              "uuid": "8ad5891b-e7b9-40cb-8bbd-b575bdc9c160",
+              "layers": 1,
+              "matrix": [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+              "geometry": "a587de05-c7fb-447b-9ca2-d530c10c952a",
+              "material": "038e4018-fcfd-4ccc-9c7a-93fa258e0124"
+            }
+          ]
+        }
+      ]
+    },
+    "metadata": {
+      "type": "Object",
+      "version": 4.5,
+      "generator": "Object3D.toJSON"
+    },
+    "materials": [
+      {
+        "type": "MeshPhongMaterial",
+        "uuid": "038e4018-fcfd-4ccc-9c7a-93fa258e0124",
+        "color": 6629673,
+        "emissive": 0,
+        "specular": 1118481,
+        "depthFunc": 3,
+        "depthTest": true,
+        "shininess": 30,
+        "colorWrite": true,
+        "depthWrite": true,
+        "stencilRef": 0,
+        "stencilFail": 7680,
+        "stencilFunc": 519,
+        "reflectivity": 1,
+        "stencilWrite": false,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "refractionRatio": 0.98,
+        "stencilFuncMask": 255,
+        "stencilWriteMask": 255
+      }
+    ],
+    "geometries": [
+      {
+        "data": {
+          "attributes": {
+            "uv": {
+              "type": "Float32Array",
+              "array": [
+                0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1,
+                0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1,
+                0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0,
+                0, 1, 1, 0, 0, 1, 0, 1, 1
+              ],
+              "itemSize": 2,
+              "normalized": false
+            },
+            "normal": {
+              "type": "Float32Array",
+              "array": [
+                1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0,
+                -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1,
+                0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0,
+                -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+                0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0,
+                -1, 0, 0, -1, 0, 0, -1
+              ],
+              "itemSize": 3,
+              "normalized": false
+            },
+            "position": {
+              "type": "Float32Array",
+              "array": [
+                0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5,
+                0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5,
+                -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5,
+                0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5,
+                0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5,
+                -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5,
+                0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5,
+                -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5,
+                0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5,
+                -0.5, -0.5, 0.5, -0.5
+              ],
+              "itemSize": 3,
+              "normalized": false
+            }
+          },
+          "boundingSphere": {
+            "center": [0, 0, 0],
+            "radius": 0.8660254037844386
+          }
+        },
+        "type": "BufferGeometry",
+        "uuid": "a587de05-c7fb-447b-9ca2-d530c10c952a"
+      }
+    ]
+  },
+  "camera": {
+    "object": {
+      "far": 1000,
+      "fov": 50,
+      "name": "Camera",
+      "near": 0.01,
+      "type": "PerspectiveCamera",
+      "uuid": "b78a26a0-1d8b-4f5c-93a6-0b967e706474",
+      "zoom": 1,
+      "focus": 10,
+      "aspect": 1.3304347826086955,
+      "layers": 1,
+      "matrix": [
+        0.8638166261589336, 0, 0.503806348085647, 0, 0.2674641129650872,
+        0.8474427782846622, -0.4585887981721437, 0, -0.4269470513391505,
+        0.5308867464282492, 0.7320351616006106, 0, -6.479048195581926,
+        8.05636391143966, 11.10885080010399, 1
+      ],
+      "filmGauge": 35,
+      "filmOffset": 0
+    },
+    "metadata": {
+      "type": "Object",
+      "version": 4.5,
+      "generator": "Object3D.toJSON"
+    }
+  },
+  "history": { "redos": [], "undos": [] },
+  "project": {
+    "vr": false,
+    "shadows": true,
+    "shadowType": 1,
+    "toneMapping": 0,
+    "toneMappingExposure": 1,
+    "physicallyCorrectLights": false
+  },
+  "scripts": {
+    "8ad5891b-e7b9-40cb-8bbd-b575bdc9c160": [
+      {
+        "name": "a",
+        "source": "function separate(event) {\n  console.log(event)\n\n  this.position.x += 1;\n  this.position.y += 0;\n  this.position.z += 0;\n\n};\n",
+        "blocksJson": {
+          "blocks": {
+            "blocks": [
+              {
+                "x": 112,
+                "y": 38,
+                "id": "`{Hy-MOs|nK]*0DQAn+s",
+                "type": "separate",
+                "inputs": {
+                  "DO": {
+                    "block": {
+                      "id": "FC_AOOP8B9FLE31|o|*_",
+                      "type": "move",
+                      "fields": { "X": 1, "Y": 0, "Z": 0 }
+                    }
+                  }
+                }
+              }
+            ],
+            "languageVersion": 0
+          }
+        }
+      }
+    ]
+  },
+  "metadata": {}
+}

@@ -1,7 +1,12 @@
 <template>
   <div id="manual-view">
-    <el-table :data="manualsData" style="width: 100%; height: 100vh">
-      <el-table-column fixed prop="id" label="Date" />
+    <el-table
+      :data="manualsData"
+      :default-sort="{ prop: 'date', order: 'descending' }"
+      style="width: 100%; height: 100vh"
+    >
+      <el-table-column prop="id" label="ID" v-if="false" />
+      <el-table-column fixed prop="date" label="Date" sortable />
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="operation" label="operation">
         <template #default="scope">
@@ -32,6 +37,7 @@ import { VRButton } from "@/editor/examples/jsm/webxr/VRButton.js"
 import { onMounted, reactive, ref } from "vue"
 import { useRouter, useRoute } from "vue-router"
 import { ElMessage, ElMessageBox } from "element-plus"
+import { formatteDate } from "@/js/utilsTools.js"
 import axios from "axios"
 
 const router = useRouter()
@@ -52,6 +58,18 @@ function getAllManuals() {
     .post("/getAllManuals", model.value)
     .then((res) => {
       manualsData.value = res.data.data
+        .map((item) => {
+          return { ...item, date: formatteDate(item.date) }
+        })
+        .sort((a, b) => {
+          if (a.date < b.date) {
+            return 1
+          } else if (a.date > b.date) {
+            return -1
+          } else {
+            return 0
+          }
+        })
     })
     .catch((res) => {
       console.log(res)

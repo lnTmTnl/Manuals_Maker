@@ -8,12 +8,14 @@ import { MenubarView } from "./Menubar.View.js"
 import { MenubarHelp } from "./Menubar.Help.js"
 import { MenubarPlay } from "./Menubar.Play.js"
 import { MenubarStatus } from "./Menubar.Status.js"
+import { MenubarSteps } from "./Menubar.Steps.js"
 
 function Menubar(editor) {
   const container = new UIPanel()
   container.setId("menubar")
 
   const menubarFile = new MenubarFile(editor)
+  const menubarSteps = new MenubarSteps(editor)
 
   container.add(menubarFile)
   container.add(new MenubarEdit(editor))
@@ -25,7 +27,10 @@ function Menubar(editor) {
 
   container.add(new MenubarStatus(editor))
 
+  container.add(menubarSteps)
+
   container.menubarFile = menubarFile
+  container.menubarSteps = menubarSteps
 
   return container
 }

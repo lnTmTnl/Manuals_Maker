@@ -4,7 +4,14 @@
       <el-icon :size="20"
         ><component :is="resourceIcon(resource.type)"></component
       ></el-icon>
-      <div class="resource-name ellipsis-hidden">{{ resource.name }}</div>
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        :content="resource.name"
+        placement="bottom"
+      >
+        <div class="resource-name ellipsis-hidden">{{ resource.name }}</div>
+      </el-tooltip>
     </el-checkbox-button>
   </div>
 </template>

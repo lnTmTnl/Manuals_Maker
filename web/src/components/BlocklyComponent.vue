@@ -63,7 +63,6 @@ function runCode() {
 }
 
 function saveBlocks(script) {
-  // console.log(script)
   script.blocksJson = Blockly.serialization.workspaces.save(workspace)
 }
 

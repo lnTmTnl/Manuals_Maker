@@ -62,12 +62,19 @@
         size="large"
         class="resource-group"
       >
-        <ResourceItem
-          v-for="resource in currentResources"
-          :key="resource"
-          :resource="resource"
-          @openResourceFile="openResourceFile"
-        ></ResourceItem>
+        <el-row>
+          <el-col
+            :span="3"
+            v-for="resource in currentResources"
+            :key="resource"
+          >
+            <ResourceItem
+              :key="resource"
+              :resource="resource"
+              @openResourceFile="openResourceFile"
+            ></ResourceItem>
+          </el-col>
+        </el-row>
       </el-checkbox-group>
     </div>
   </div>
@@ -307,8 +314,4 @@ defineExpose({
 })
 </script>
 
-<style scoped>
-.resource-group {
-  display: flex;
-}
-</style>
+<style scoped></style>

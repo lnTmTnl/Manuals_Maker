@@ -56,9 +56,7 @@ function importConfirmed() {
         })
         .then((res) => {
           const data = res.data
-          console.log(res)
           const objFile = new File([data], resource.name)
-          // console.log(objFile)
           props.editor.loader.loadFiles([objFile])
           importDisplay.value = false
         })
@@ -97,6 +95,10 @@ function publishConfirmed() {
 
 onMounted(() => {
   menubarContainer.value.appendChild(menubar.dom)
+})
+
+defineExpose({
+  setSteps: menubar.menubarSteps.setSteps,
 })
 </script>
 

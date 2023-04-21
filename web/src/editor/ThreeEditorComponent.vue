@@ -6,7 +6,7 @@
       <Script :editor="editor"></Script>
       <!-- <Player :editor="editor"></Player> -->
       <SideBar :editor="editor"></SideBar>
-      <MenuBar :editor="editor"></MenuBar>
+      <MenuBar :editor="editor" ref="menubar"></MenuBar>
       <el-button type="primary" id="back-btn" @click="onBack">返回</el-button>
     </div>
   </div>
@@ -36,6 +36,7 @@ import MenuBar from "@/editor/components/MenuBar.vue"
 import axios from "axios"
 
 const threeEditor = ref(null)
+const menubar = ref(null)
 
 const editor = new Editor()
 
@@ -43,11 +44,13 @@ const router = useRouter()
 const route = useRoute()
 
 const userid = parseInt(route.params.userid)
-const id = parseInt(route.params.projectid)
+const id = route.params.projectid
+const stepnames = ref([])
 const model = ref({
   id,
   userid,
   name: "",
+  step: "",
   content: {},
 })
 
@@ -92,20 +95,35 @@ onMounted(() => {
 
   editor.storage.init(function () {
     axios
-      .post("/getAProject", model.value)
+      .post("/getAProjectInfo", model.value)
       .then((res) => {
         if (res.data.state !== 0) {
           const data = res.data.data
           model.value.name = data.name
-          model.value.content = data.content
-          // console.log(2, model.value.content)
-          editor.fromJSON(model.value.content)
-        } else {
-          console.log("error")
+          stepnames.value = data.content
+          model.value.step = stepnames.value[0]
+          menubar.value.setSteps(stepnames.value)
         }
       })
-      .catch((res) => {
-        console.log(res)
+      .then(() => {
+        axios
+          .post("/getAProject", model.value)
+          .then((res) => {
+            if (res.data.state !== 0) {
+              const data = res.data
+              model.value.content = data
+              editor.fromJSON(model.value.content)
+            } else {
+              console.log("error")
+            }
+          })
+          .catch((res) => {
+            console.log(res)
+          })
+
+        // axios.get("/getAStep/" + id + "/" + model.value.step).then((res) => {
+        //   console.log(res)
+        // })
       })
 
     // editor.storage.get(function (state) {
@@ -141,9 +159,20 @@ onMounted(() => {
 
         timeout = setTimeout(function () {
           //editor.storage.set(editor.toJSON())
-          model.value.content = editor.toJSON()
+          const editorJSON = editor.toJSON()
+          let editorJSONString = JSON.stringify(editorJSON, null, "\t")
+          editorJSONString = editorJSONString.replace(
+            /[\n\t]+([\d\.e\-\[\]]+)/g,
+            "$1"
+          )
           axios
-            .post("/updateProjects", model.value)
+            .post("/updateProjects", {
+              id,
+              userid,
+              name: model.value.name,
+              step: model.value.step,
+              content: editorJSONString,
+            })
             .then((res) => {
               console.log("saved")
             })

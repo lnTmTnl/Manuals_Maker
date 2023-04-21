@@ -21,7 +21,6 @@ const manualid = route.params.manualid
 window.THREE = THREE // Used by APP Scripts.
 window.VRButton = VRButton // Used by APP Scripts.
 
-// const loader = new THREE.FileLoader()
 const player = new APP.Player()
 const manualUI = new ManualUI(player)
 
@@ -29,7 +28,6 @@ onMounted(() => {
   axios
     .post("/getAManual", { id: manualid })
     .then((res) => {
-      console.log(res.data)
       player.load(res.data)
       player.setSize(window.innerWidth, window.innerHeight)
       player.play()

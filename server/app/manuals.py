@@ -3,10 +3,13 @@ import os
 from app import app
 from sql import db, Manuals
 from sqlalchemy import select, and_
-from tools import toJsonRes
+from tools import toJsonRes, getCurrentDate
 from uuid import uuid1
 
 manuals_bp = Blueprint('manuals_bp', __name__)
+
+Publish_FOLDER = 'app/published_manuals'
+app.config['Publish_FOLDER'] = Publish_FOLDER
 
 @manuals_bp.route('/onlinePublish', methods=["POST"])
 def online_publish():
@@ -15,6 +18,7 @@ def online_publish():
     path = request.json.get('path')
     content = request.json.get('content')
     manualid = uuid1()
+    date = getCurrentDate()
     path_url = app.config['Publish_FOLDER'] + path
     try:
         if(not os.path.exists(path_url)):
@@ -22,7 +26,7 @@ def online_publish():
         file = open(path_url + '/'+ str(manualid) +'.json', 'w')
         file.write(content)
 
-        new_manual = Manuals(manualid, userid, name)
+        new_manual = Manuals(manualid, userid, name, date)
         db.session.add(new_manual)
         db.session.commit()
 

@@ -84,8 +84,6 @@ def download_file(paths):
 
 @resources_bp.route('/getFile/<path:filename>')
 def get_file(filename):
-    # path = request.json.get('path')
-    # filename = secure_filename(request.json.get('filename'))
     directory = os.path.join(app.root_path, 'uploaded_resources')
     try:
         response = send_from_directory(directory, filename, as_attachment=True)

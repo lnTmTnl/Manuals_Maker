@@ -1,3 +1,5 @@
+import { EditorControls } from "@/editor/js/EditorControls.js"
+
 var APP = {
   Player: function () {
     var renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -152,6 +154,9 @@ var APP = {
       if (renderer.xr.enabled) dom.append(vrButton)
 
       startTime = prevTime = performance.now()
+
+      const controls = new EditorControls(camera, dom)
+      document.controls = controls
 
       document.addEventListener("keydown", onKeyDown)
       document.addEventListener("keyup", onKeyUp)

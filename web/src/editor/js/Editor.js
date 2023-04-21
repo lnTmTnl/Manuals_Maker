@@ -12,6 +12,9 @@ _DEFAULT_CAMERA.name = "Camera"
 _DEFAULT_CAMERA.position.set(0, 5, 10)
 _DEFAULT_CAMERA.lookAt(new THREE.Vector3())
 
+const _DEFAULT_AMBIENT_ELIGHT = new THREE.AmbientLight(0xffffff, 1)
+_DEFAULT_AMBIENT_ELIGHT.name = "DefaultAmbientLight"
+
 function Editor() {
   const Signal = signals.Signal // eslint-disable-line no-undef
 
@@ -97,6 +100,7 @@ function Editor() {
   this.loader = new Loader(this)
 
   this.camera = _DEFAULT_CAMERA.clone()
+  this.defaultAmbientLight = _DEFAULT_AMBIENT_ELIGHT.clone()
 
   this.scene = new THREE.Scene()
   this.scene.name = "Scene"
@@ -470,6 +474,7 @@ Editor.prototype = {
     while (objects.length > 0) {
       this.removeObject(objects[0])
     }
+    this.addObject(_DEFAULT_AMBIENT_ELIGHT.clone())
 
     this.geometries = {}
     this.materials = {}
