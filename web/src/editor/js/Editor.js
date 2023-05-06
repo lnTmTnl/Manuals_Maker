@@ -474,7 +474,7 @@ Editor.prototype = {
     while (objects.length > 0) {
       this.removeObject(objects[0])
     }
-    this.addObject(_DEFAULT_AMBIENT_ELIGHT.clone())
+    // this.addObject(_DEFAULT_AMBIENT_ELIGHT.clone())
 
     this.geometries = {}
     this.materials = {}

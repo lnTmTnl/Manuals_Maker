@@ -109,7 +109,6 @@ javascriptGenerator["separate"] = function (block) {
 
   const code = `
 function separate(event) {
-  console.log(event)
   ${DO}
 };
   `

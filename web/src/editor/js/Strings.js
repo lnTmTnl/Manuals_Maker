@@ -79,6 +79,8 @@ function Strings(config) {
       "menubar/help/manual": "Manual",
 
       "menubar/steps": "Steps",
+      "menubar/steps/add": "Add",
+      "menubar/steps/delete": "Delete",
 
       "sidebar/animations": "Animations",
       "sidebar/animations/play": "Play",
@@ -430,6 +432,8 @@ function Strings(config) {
       "menubar/help/manual": "Manual",
 
       "menubar/steps": "Steps",
+      "menubar/steps/add": "Add",
+      "menubar/steps/delete": "Delete",
 
       "sidebar/animations": "Animations",
       "sidebar/animations/play": "Play",
@@ -783,6 +787,8 @@ function Strings(config) {
       "menubar/help/manual": "手册",
 
       "menubar/steps": "步骤",
+      "menubar/steps/add": "新增",
+      "menubar/steps/delete": "删除",
 
       "sidebar/animations": "动画",
       "sidebar/animations/play": "播放",

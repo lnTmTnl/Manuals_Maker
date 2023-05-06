@@ -22,6 +22,19 @@
         </span>
       </template>
     </el-dialog>
+
+    <el-dialog v-model="addStepDisplay" title="Shipping address">
+      <el-input v-model="newStepName" autocomplete="off" />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="addStepDisplay = false">取 消</el-button>
+          <el-button type="primary" @click="addStepConfirmed">
+            确 定
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+
     <slot></slot>
   </div>
 </template>
@@ -31,20 +44,30 @@ import { Menubar } from "@/editor/js/Menubar.js"
 import { ref } from "@vue/reactivity"
 import { onMounted } from "@vue/runtime-core"
 import { useRoute } from "vue-router"
+import { Editor } from "@/editor/js/Editor.js"
 import ResourcesContainer from "@/components/ResourcesContainer.vue"
 import axios from "axios"
 import utf8 from "utf8"
 
 const route = useRoute()
+const id = route.params.projectid
 const userid = route.params.userid
 
 const menubarContainer = ref(null)
 const resourcesContainer = ref(null)
 const props = defineProps(["editor"])
 const menubar = new Menubar(props.editor)
-const importDisplay = menubar.menubarFile.importDisplay
+
+const importDisplay = ref(false)
+document.importDisplay = importDisplay
+
 const publishDisplay = menubar.menubarFile.publishDisplay
+const addStepDisplay = menubar.menubarSteps.addStepDisplay
+
 const publishName = ref("")
+const newStepName = ref("")
+
+const emit = defineEmits(["addStep"])
 
 function importConfirmed() {
   const checkedResources = resourcesContainer.value.checkedResources
@@ -77,13 +100,12 @@ function publishConfirmed() {
   output = JSON.stringify(output, null, "\t")
   output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, "$1")
 
-  const path = "/" + userid
   console.log(publishName.value)
 
   axios
     .post("/onlinePublish", {
+      projectid: id,
       userid,
-      path,
       name: publishName.value,
       content: output,
     })
@@ -91,6 +113,11 @@ function publishConfirmed() {
       console.log(res.data)
     })
     .catch((res) => console.log(res))
+}
+
+function addStepConfirmed() {
+  addStepDisplay.value = false
+  emit("addStep", newStepName.value)
 }
 
 onMounted(() => {

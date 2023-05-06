@@ -13,6 +13,8 @@ var APP = {
 
     var events = {}
 
+    this.initJson = {}
+
     var dom = document.createElement("div")
     dom.appendChild(renderer.domElement)
 
@@ -50,6 +52,7 @@ var APP = {
         pointermove: [],
         update: [],
         separate: [],
+        recover: [],
       }
 
       var scriptWrapParams = "player,renderer,scene,camera"
@@ -164,6 +167,7 @@ var APP = {
       document.addEventListener("pointerup", onPointerUp)
       document.addEventListener("pointermove", onPointerMove)
       document.addEventListener("separate", onSeparate)
+      document.addEventListener("recover", onRecover)
 
       dispatch(events.start, arguments)
 
@@ -179,6 +183,7 @@ var APP = {
       document.removeEventListener("pointerup", onPointerUp)
       document.removeEventListener("pointermove", onPointerMove)
       document.removeEventListener("separate", onSeparate)
+      document.removeEventListener("recover", onRecover)
 
       dispatch(events.stop, arguments)
 
@@ -222,6 +227,10 @@ var APP = {
 
     function onSeparate(event) {
       dispatch(events.separate, event)
+    }
+
+    function onRecover(event) {
+      dispatch(events.recover, event)
     }
   },
 }

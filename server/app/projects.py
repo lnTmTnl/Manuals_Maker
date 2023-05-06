@@ -98,7 +98,7 @@ def update_projects():
             db.session.add(new_project)
             db.session.commit()
         else:
-            stepnames = res[0].get('content')
+            stepnames = res[0].getDict().get('content')
             if step not in stepnames:
                 stepnames.append(step)
             db.session.query(Projects).filter((cast(Projects.id, VARCHAR) == id) & (Projects.userid == userid)).update({"content":stepnames, 'date': date})

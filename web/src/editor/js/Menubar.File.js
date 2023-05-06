@@ -45,8 +45,8 @@ function MenubarFile(editor) {
 
   // Import
 
-  const importDisplay = ref(false)
-  container.importDisplay = importDisplay
+  // const importDisplay = ref(false)
+  // container.importDisplay = importDisplay
   const form = document.createElement("form")
   form.style.display = "none"
   document.body.appendChild(form)
@@ -64,7 +64,7 @@ function MenubarFile(editor) {
   option.setClass("option")
   option.setTextContent(strings.getKey("menubar/file/import"))
   option.onClick(function () {
-    importDisplay.value = true
+    document.importDisplay.value = true
     // fileInput.click()
   })
   options.add(option)

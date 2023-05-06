@@ -309,6 +309,8 @@ class UISelect extends UIElement {
     this.dom.style.padding = "2px"
 
     this.dom.setAttribute("autocomplete", "off")
+
+    this.options = []
   }
 
   setMultiple(boolean) {
@@ -332,8 +334,13 @@ class UISelect extends UIElement {
     }
 
     this.dom.value = selected
+    this.options = options
 
     return this
+  }
+
+  getOption(index) {
+    return this.options[index]
   }
 
   getValue() {

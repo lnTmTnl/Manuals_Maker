@@ -40,16 +40,18 @@ class Projects(db.Model):
         return {i.name: getattr(self, i.name) for i in self.__table__.columns}
 
 class Manuals(db.Model):
-    def __init__(self, id, userid, name, date):
+    def __init__(self, id, userid, name, date, content):
         self.id = id
         self.userid = userid
         self.name = name
         self.date = date
+        self.content = content
 
     id = db.Column(db.String, primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey(Users.id))
     name = db.Column(db.String, unique=False)
     date = db.Column(db.DateTime, unique=False)
+    content = db.Column(db.JSON, unique=False)
 
     def getDict(self):
         return {i.name: getattr(self, i.name) for i in self.__table__.columns}

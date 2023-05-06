@@ -55,7 +55,7 @@ onMounted(() => {
 
 function getAllManuals() {
   axios
-    .post("/getAllManuals", model.value)
+    .get("/getAllManuals/" + model.value.userid)
     .then((res) => {
       manualsData.value = res.data.data
         .map((item) => {

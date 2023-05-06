@@ -38,6 +38,7 @@ class UITexture extends UISpan {
     canvas.style.border = "1px solid #888"
     canvas.addEventListener("click", function () {
       input.click()
+      document.importDisplay.value = true
     })
     canvas.addEventListener("drop", function (event) {
       event.preventDefault()

@@ -139,6 +139,7 @@ function createProject() {
       id: projectid,
       name: newProjectName.value,
       userid: userid,
+      step: "step0",
       content: editorJSONString,
     })
     .then((res) => {

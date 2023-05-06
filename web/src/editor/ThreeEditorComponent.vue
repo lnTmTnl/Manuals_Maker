@@ -6,7 +6,7 @@
       <Script :editor="editor"></Script>
       <!-- <Player :editor="editor"></Player> -->
       <SideBar :editor="editor"></SideBar>
-      <MenuBar :editor="editor" ref="menubar"></MenuBar>
+      <MenuBar :editor="editor" ref="menubar" @addStep="addStep"></MenuBar>
       <el-button type="primary" id="back-btn" @click="onBack">返回</el-button>
     </div>
   </div>
@@ -102,24 +102,11 @@ onMounted(() => {
           model.value.name = data.name
           stepnames.value = data.content
           model.value.step = stepnames.value[0]
-          menubar.value.setSteps(stepnames.value)
+          menubar.value.setSteps(stepnames.value, loadStep)
         }
       })
       .then(() => {
-        axios
-          .post("/getAProject", model.value)
-          .then((res) => {
-            if (res.data.state !== 0) {
-              const data = res.data
-              model.value.content = data
-              editor.fromJSON(model.value.content)
-            } else {
-              console.log("error")
-            }
-          })
-          .catch((res) => {
-            console.log(res)
-          })
+        loadStep(model.value.step)
 
         // axios.get("/getAStep/" + id + "/" + model.value.step).then((res) => {
         //   console.log(res)
@@ -257,6 +244,39 @@ onMounted(() => {
     } catch (error) {}
   }
 })
+
+function addStep(newStepName) {
+  const editor = new Editor()
+  editor.clear()
+  const editorJSON = editor.toJSON()
+  let editorJSONString = JSON.stringify(editorJSON, null, "\t")
+  editorJSONString = editorJSONString.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, "$1")
+  axios
+    .post("/updateProjects", {
+      id,
+      userid,
+      name: model.value.name,
+      step: newStepName,
+      content: editorJSONString,
+    })
+    .then((res) => {
+      stepnames.value.push(newStepName)
+      menubar.value.setSteps(stepnames.value, loadStep)
+      console.log("saved")
+    })
+    .catch((res) => {
+      console.log(res)
+    })
+}
+
+function loadStep(step) {
+  axios.get("/getAStep/" + id + "/" + step).then((res) => {
+    model.value.content = res.data
+    model.value.step = step
+    editor.clear()
+    editor.fromJSON(res.data)
+  })
+}
 
 function onBack() {
   router.replace({ path: `/profile/${userid}/projects` })
