@@ -100,7 +100,6 @@ function deleteManual(manualid) {
   axios
     .delete("/deleteAManual/" + manualid)
     .then(function (res) {
-      console.log(res)
       getAllManuals()
     })
     .catch(function (error) {

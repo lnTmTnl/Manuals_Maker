@@ -28,4 +28,8 @@ body {
   overflow: hidden;
   white-space: nowrap;
 }
+
+#script {
+  height: 45%;
+}
 </style>

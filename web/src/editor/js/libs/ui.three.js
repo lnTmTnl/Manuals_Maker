@@ -37,8 +37,9 @@ class UITexture extends UISpan {
     canvas.style.marginRight = "5px"
     canvas.style.border = "1px solid #888"
     canvas.addEventListener("click", function () {
-      input.click()
-      document.importDisplay.value = true
+      // input.click()
+      // document.importDisplay.value = true
+      document.displayResources(scope.loadFile)
     })
     canvas.addEventListener("drop", function (event) {
       event.preventDefault()
@@ -109,6 +110,31 @@ class UITexture extends UISpan {
         )
 
         reader.readAsDataURL(file)
+      } else {
+        reader.addEventListener(
+          "load",
+          function (event) {
+            const image = document.createElement("img")
+            image.addEventListener(
+              "load",
+              function () {
+                const texture = new THREE.Texture(this, mapping)
+                texture.sourceFile = file.name
+                texture.needsUpdate = true
+
+                scope.setValue(texture)
+
+                if (scope.onChangeCallback) scope.onChangeCallback(texture)
+              },
+              false
+            )
+
+            image.src = event.target.result
+          },
+          false
+        )
+
+        reader.readAsDataURL(file)
       }
 
       form.reset()
@@ -116,6 +142,7 @@ class UITexture extends UISpan {
 
     this.texture = null
     this.onChangeCallback = null
+    this.loadFile = loadFile
   }
 
   getValue() {

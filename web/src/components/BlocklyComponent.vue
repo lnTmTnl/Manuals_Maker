@@ -4,9 +4,10 @@
     <xml ref="blocklyToolbox" style="display: none">
       <slot></slot>
     </xml>
+    <button id="showCodeBtn" v-on:click="showCode">Save Script</button>
     </div>
-    <p id="code">
-      <button v-on:click="showCode">Save Script</button>
+    <p id="code" v-show="false">
+      
       <!-- <button v-on:click="runCode">Run Code</button> -->
       <pre v-html="code"></pre>
     </p>
@@ -81,10 +82,15 @@ defineExpose({
 #blockly {
   position: absolute;
   left: 0;
+  right: 300px;
   bottom: 0;
-  width: 50%;
+  /* width: 75%; */
   height: 50%;
   z-index: 999;
+}
+
+.blocklySvg {
+  width: 100%;
 }
 
 .blocklyDiv {
@@ -101,6 +107,13 @@ defineExpose({
   height: 50%;
   margin: 0;
   background-color: beige;
+  z-index: 999;
+}
+
+#showCodeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
   z-index: 999;
 }
 </style>

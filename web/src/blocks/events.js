@@ -82,8 +82,6 @@ function pointerdown(event) {
   pointer.x = ( event.offsetX / player.width ) * 2 - 1;
   pointer.y = - ( event.offsetY / player.height ) * 2 + 1;
   raycaster.setFromCamera(pointer, camera);
-  console.log(event)
-  console.log(raycaster.intersectObjects( scene.children ).findIndex(obj=>obj.object.uuid === this.uuid) > -1)
   if(raycaster.intersectObjects( scene.children ).findIndex(obj=>obj.object.uuid === this.uuid) > -1){
     ${DO}
   }
@@ -97,7 +95,6 @@ javascriptGenerator["movePointer"] = function (block) {
 
   const code = `
 function pointermove(event) {
-  console.log(event)
   ${DO}
 };
   `

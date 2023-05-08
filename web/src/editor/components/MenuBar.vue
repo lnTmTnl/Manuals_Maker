@@ -59,7 +59,7 @@ const props = defineProps(["editor"])
 const menubar = new Menubar(props.editor)
 
 const importDisplay = ref(false)
-document.importDisplay = importDisplay
+// document.importDisplay = importDisplay
 
 const publishDisplay = menubar.menubarFile.publishDisplay
 const addStepDisplay = menubar.menubarSteps.addStepDisplay
@@ -67,27 +67,51 @@ const addStepDisplay = menubar.menubarSteps.addStepDisplay
 const publishName = ref("")
 const newStepName = ref("")
 
+let targetFileLoader = null
+
 const emit = defineEmits(["addStep"])
+
+function displayResources(loader) {
+  importDisplay.value = true
+  targetFileLoader = loader
+}
+
+document.displayResources = displayResources
 
 function importConfirmed() {
   const checkedResources = resourcesContainer.value.checkedResources
-  checkedResources.forEach((resource) => {
-    if (resource.type === "model") {
-      axios
-        .get("/getFile" + resource.path + "/" + resource.name, {
-          responseType: "blob",
-        })
-        .then((res) => {
-          const data = res.data
-          const objFile = new File([data], resource.name)
-          props.editor.loader.loadFiles([objFile])
-          importDisplay.value = false
-        })
-        .catch((res) => {
-          console.log(res)
-        })
-    }
-  })
+  // checkedResources.forEach((resource) => {
+  //   if (resource.type === "model") {
+  //     axios
+  //       .get("/getFile" + resource.path + "/" + resource.name, {
+  //         responseType: "blob",
+  //       })
+  //       .then((res) => {
+  //         const data = res.data
+  //         const objFile = new File([data], resource.name)
+  //         props.editor.loader.loadFile(objFile)
+  //         importDisplay.value = false
+  //       })
+  //       .catch((res) => {
+  //         console.log(res)
+  //       })
+  //   }
+  // })
+
+  const resource = checkedResources[0]
+  axios
+    .get("/getFile" + resource.path + "/" + resource.name, {
+      responseType: "blob",
+    })
+    .then((res) => {
+      const data = res.data
+      const objFile = new File([data], resource.name)
+      targetFileLoader(objFile)
+      importDisplay.value = false
+    })
+    .catch((res) => {
+      console.log(res)
+    })
 }
 
 function publishConfirmed() {
@@ -100,8 +124,6 @@ function publishConfirmed() {
   output = JSON.stringify(output, null, "\t")
   output = output.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, "$1")
 
-  console.log(publishName.value)
-
   axios
     .post("/onlinePublish", {
       projectid: id,
@@ -110,7 +132,7 @@ function publishConfirmed() {
       content: output,
     })
     .then((res) => {
-      console.log(res.data)
+      // console.log(res.data)
     })
     .catch((res) => console.log(res))
 }

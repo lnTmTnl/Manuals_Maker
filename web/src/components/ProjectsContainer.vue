@@ -155,7 +155,6 @@ function deleteProject(projectid) {
   axios
     .delete("/deleteProject", { data: { id: projectid, userid } })
     .then((res) => {
-      console.log(res)
       getAllProjects()
     })
     .catch((res) => {

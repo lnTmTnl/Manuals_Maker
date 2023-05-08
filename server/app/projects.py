@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, jsonify, send_from_directory
 import os
+import shutil
 from app import app
 from sql import db, Projects
 from sqlalchemy import select, and_, cast, VARCHAR
@@ -112,7 +113,9 @@ def update_projects():
 def delete_project():
     id = request.json.get('id')
     userid = request.json.get('userid')
+    directory_path = app.config['Projects_FOLDER'] + '/' + str(userid) + '/' + id
     try:
+        shutil.rmtree(directory_path)
         db.session.query(Projects).filter((cast(Projects.id, VARCHAR) == id) & (Projects.userid == userid)).delete()
         db.session.commit()
         return jsonify({'message': 'Project deleted successfully'})

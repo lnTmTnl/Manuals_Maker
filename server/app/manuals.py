@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, jsonify, send_from_directory
 import os
 import json
+import shutil
 from app import app
 from sql import db, Manuals, Projects
 from sqlalchemy import select, and_
@@ -123,9 +124,9 @@ def delete_a_manual(manualid):
     else:
         data = res[0].getDict()
         userid = data.get('userid')
-        directory = os.path.join(app.root_path, 'published_manuals'+ '/' + str(userid))
+        directory = os.path.join(app.root_path, 'published_manuals'+ '/' + str(userid) + '/' + manualid)
         try:
-            os.remove(directory + '/' + manualid + '.json')
+            shutil.rmtree(directory)
             Manuals.query.filter_by(id=manualid).delete()
             db.session.commit()
             return jsonify({'message': 'File deleted successfully'})
