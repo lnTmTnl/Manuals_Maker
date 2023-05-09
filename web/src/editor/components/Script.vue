@@ -2,6 +2,7 @@
   <div id="script-container" ref="scriptContainer">
     <BlocklyComponent
       ref="blocklyComponent"
+      :editor="props.editor"
       v-show="script.blocklyDisplay"
       @showCode="showCode"
     ></BlocklyComponent>

@@ -17,9 +17,10 @@
 <script setup>
 import Blockly from "blockly"
 import * as THREE from "three"
-import { toolboxJson } from "@/blocks/base.js"
+import { toolboxJson, baseBlocks } from "@/blocks/base.js"
 import { threeBlocks } from "@/blocks/threes.js"
 import { eventBlocks } from "@/blocks/events.js"
+import { getObjectBlocks } from "@/blocks/objects.js"
 import { javascriptGenerator } from "blockly/javascript"
 import { onMounted, ref } from "@vue/runtime-core"
 
@@ -31,22 +32,25 @@ const code = ref("")
 
 const blocksJson = ref(null)
 
+const props = defineProps(["editor"])
 const emit = defineEmits(["showCode", "runCode"])
 
-toolboxJson.contents.unshift(threeBlocks, eventBlocks)
-
-const options = ref({
-  media: "/blockly_media",
-  grid: {
-    spacing: 25,
-    length: 3,
-    colour: "#ccc",
-    snap: true,
-  },
-  toolbox: toolboxJson,
-})
 
 onMounted(() => {
+  toolboxJson.contents = []
+  toolboxJson.contents.unshift(threeBlocks, eventBlocks, ...baseBlocks)
+
+  const options = ref({
+    media: "/blockly_media",
+    grid: {
+      spacing: 25,
+      length: 3,
+      colour: "#ccc",
+      snap: true,
+    },
+    toolbox: toolboxJson,
+  })
+
   if (!options.value.toolbox) {
     options.value.toolbox = blocklyToolbox.value
   }

@@ -42,9 +42,10 @@ function ManualUI(player) {
     const preStepEvent = new Event("preStep")
     document.dispatchEvent(preStepEvent)
 
-    const currentStepIndex = stepSelect.getValue()
+    const currentStepIndex = parseInt(stepSelect.getValue())
     const stepCount = stepSelect.options.length
-    loadStep((currentStepIndex - 1 + stepCount) % stepCount)
+    const sum = currentStepIndex - 1 + stepCount
+    loadStep(sum % stepCount)
   })
   container.add(preStepBtn)
 
@@ -55,9 +56,13 @@ function ManualUI(player) {
     const nextStepEvent = new Event("nextStep")
     document.dispatchEvent(nextStepEvent)
 
-    const currentStepIndex = stepSelect.getValue()
+    const currentStepIndex = parseInt(stepSelect.getValue())
     const stepCount = stepSelect.options.length
-    loadStep((currentStepIndex + 1 + stepCount) % stepCount)
+    const sum = currentStepIndex + 1 + stepCount
+    console.log("stepCount: " + stepCount)
+    console.log("currentStepIndex: " + currentStepIndex)
+    console.log(sum)
+    loadStep(sum % stepCount)
   })
   container.add(nextStepBtn)
 

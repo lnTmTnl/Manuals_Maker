@@ -502,6 +502,10 @@ Editor.prototype = {
 
     this.history.fromJSON(json.history)
     this.scripts = json.scripts
+    document.scriptableObjects = json.scriptableObjects
+    if (document.scriptableObjects === undefined) {
+      document.scriptableObjects = []
+    }
 
     this.setScene(await loader.parseAsync(json.scene))
   },
@@ -543,6 +547,7 @@ Editor.prototype = {
       scene: this.scene.toJSON(),
       scripts: this.scripts,
       history: this.history.toJSON(),
+      scriptableObjects: document.scriptableObjects,
     }
   },
 

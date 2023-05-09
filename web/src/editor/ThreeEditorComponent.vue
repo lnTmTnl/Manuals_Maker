@@ -3,9 +3,9 @@
     <div>
       <ViewPort :editor="editor"></ViewPort>
       <ToolBar :editor="editor"></ToolBar>
-      <Script :editor="editor"></Script>
       <!-- <Player :editor="editor"></Player> -->
       <SideBar :editor="editor"></SideBar>
+      <Script :editor="editor"></Script>
       <MenuBar :editor="editor" ref="menubar" @addStep="addStep"></MenuBar>
       <el-button type="primary" id="back-btn" @click="onBack">返回</el-button>
     </div>

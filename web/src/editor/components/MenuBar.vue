@@ -6,7 +6,7 @@
         <ResourcesContainer ref="resourcesContainer"></ResourcesContainer>
       </div>
       <div slot="footer">
-        <el-button @click="importDisplay = false">取 消</el-button>
+        <el-button @click="importCancelled">取 消</el-button>
         <el-button type="primary" @click="importConfirmed">确 定</el-button>
       </div>
     </el-dialog>
@@ -98,20 +98,29 @@ function importConfirmed() {
   //   }
   // })
 
-  const resource = checkedResources[0]
-  axios
-    .get("/getFile" + resource.path + "/" + resource.name, {
-      responseType: "blob",
-    })
-    .then((res) => {
-      const data = res.data
-      const objFile = new File([data], resource.name)
-      targetFileLoader(objFile)
-      importDisplay.value = false
-    })
-    .catch((res) => {
-      console.log(res)
-    })
+  // const resource = checkedResources[0]
+  checkedResources.forEach((resource) => {
+    axios
+      .get("/getFile" + resource.path + "/" + resource.name, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        const data = res.data
+        const objFile = new File([data], resource.name)
+        targetFileLoader(objFile)
+      })
+      .catch((res) => {
+        console.log(res)
+      })
+  })
+  importDisplay.value = false
+  checkedResources.length = 0
+}
+
+function importCancelled() {
+  const checkedResources = resourcesContainer.value.checkedResources
+  importDisplay.value = false
+  checkedResources.length = 0
 }
 
 function publishConfirmed() {

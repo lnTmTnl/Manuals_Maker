@@ -128,6 +128,7 @@ function Strings(config) {
       "sidebar/object/frustumcull": "Frustum Cull",
       "sidebar/object/renderorder": "Render Order",
       "sidebar/object/userdata": "User data",
+      "sidebar/object/scriptable": "Used in script",
 
       "sidebar/geometry/type": "Type",
       "sidebar/geometry/new": "New",
@@ -481,6 +482,7 @@ function Strings(config) {
       "sidebar/object/frustumcull": "Culling",
       "sidebar/object/renderorder": "Ordre de rendus",
       "sidebar/object/userdata": "Données utilisateur",
+      "sidebar/object/scriptable": "Used in script",
 
       "sidebar/geometry/type": "Type",
       "sidebar/geometry/new": "Nouveau",
@@ -836,6 +838,7 @@ function Strings(config) {
       "sidebar/object/frustumcull": "视锥体裁剪",
       "sidebar/object/renderorder": "渲染次序",
       "sidebar/object/userdata": "自定义数据",
+      "sidebar/object/scriptable": "可被添加到脚本",
 
       "sidebar/geometry/type": "类型",
       "sidebar/geometry/new": "更新",
