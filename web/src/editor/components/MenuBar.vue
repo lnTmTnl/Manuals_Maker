@@ -11,7 +11,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog v-model="publishDisplay" title="Shipping address">
+    <el-dialog v-model="publishDisplay" title="Publish">
       <el-input v-model="publishName" autocomplete="off" />
       <template #footer>
         <span class="dialog-footer">

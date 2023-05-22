@@ -502,6 +502,7 @@ Editor.prototype = {
 
     this.history.fromJSON(json.history)
     this.scripts = json.scripts
+    this.scriptableObjects = json.scriptableObjects
     document.scriptableObjects = json.scriptableObjects
     if (document.scriptableObjects === undefined) {
       document.scriptableObjects = []

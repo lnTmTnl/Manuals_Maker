@@ -5,7 +5,7 @@
       <ToolBar :editor="editor"></ToolBar>
       <!-- <Player :editor="editor"></Player> -->
       <SideBar :editor="editor"></SideBar>
-      <Script :editor="editor"></Script>
+      <Script :editor="editor" ref="scriptComponent"></Script>
       <MenuBar :editor="editor" ref="menubar" @addStep="addStep"></MenuBar>
       <el-button type="primary" id="back-btn" @click="onBack">返回</el-button>
     </div>
@@ -36,6 +36,7 @@ import MenuBar from "@/editor/components/MenuBar.vue"
 import axios from "axios"
 
 const threeEditor = ref(null)
+const scriptComponent = ref(null)
 const menubar = ref(null)
 
 const editor = new Editor()
@@ -111,6 +112,12 @@ onMounted(() => {
         // axios.get("/getAStep/" + id + "/" + model.value.step).then((res) => {
         //   console.log(res)
         // })
+      })
+      .then(() => {
+        // scriptComponent.value.injectBlocks()
+        editor.signals.editScript.add(function (object, script) {
+          scriptComponent.value.injectBlocks()
+        })
       })
 
     // editor.storage.get(function (state) {

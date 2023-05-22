@@ -1027,9 +1027,7 @@ function SidebarObject(editor) {
     objectVisible.setValue(object.visible)
     objectFrustumCulled.setValue(object.frustumCulled)
     objectRenderOrder.setValue(object.renderOrder)
-    objectScriptable.setValue(
-      document.scriptableObjects.find((obj) => obj === object.uuid)
-    )
+    objectScriptable.setValue(document.scriptableObjects.includes(object.uuid))
 
     try {
       objectUserData.setValue(JSON.stringify(object.userData, null, "  "))

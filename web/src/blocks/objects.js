@@ -2,16 +2,22 @@ import Blockly from "blockly"
 import { javascriptGenerator } from "blockly/javascript"
 
 function getObjectBlocks(editor) {
+  const objectOptions = editor.scriptableObjects
+    ? editor.scriptableObjects.map((uuid) => {
+        const obj = editor.scene.getObjectByProperty("uuid", uuid)
+        const objFullname = obj.name + "/" + obj.type
+        return [objFullname, uuid]
+      })
+    : [["none", "none"]]
   Blockly.defineBlocksWithJsonArray([
     {
       type: "object",
       message0: "object %1",
       args0: [
         {
-          type: "field_variable",
+          type: "field_dropdown",
           name: "objectuuid",
-          variable: "item",
-          variableTypes: editor.scriptableObjects,
+          options: objectOptions,
         },
       ],
       previousStatement: null,
@@ -37,6 +43,8 @@ function getObjectBlocks(editor) {
       },
     ],
   }
+
+  return objectBlocks
 }
 
 export { getObjectBlocks }

@@ -59,9 +59,6 @@ function ManualUI(player) {
     const currentStepIndex = parseInt(stepSelect.getValue())
     const stepCount = stepSelect.options.length
     const sum = currentStepIndex + 1 + stepCount
-    console.log("stepCount: " + stepCount)
-    console.log("currentStepIndex: " + currentStepIndex)
-    console.log(sum)
     loadStep(sum % stepCount)
   })
   container.add(nextStepBtn)

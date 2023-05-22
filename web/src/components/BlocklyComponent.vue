@@ -37,24 +37,11 @@ const emit = defineEmits(["showCode", "runCode"])
 
 
 onMounted(() => {
-  toolboxJson.contents = []
-  toolboxJson.contents.unshift(threeBlocks, eventBlocks, ...baseBlocks)
+  injectBlocks(getBlockTree())
 
-  const options = ref({
-    media: "/blockly_media",
-    grid: {
-      spacing: 25,
-      length: 3,
-      colour: "#ccc",
-      snap: true,
-    },
-    toolbox: toolboxJson,
-  })
-
-  if (!options.value.toolbox) {
-    options.value.toolbox = blocklyToolbox.value
-  }
-  workspace = Blockly.inject(blocklyDiv.value, options.value)
+  // setTimeout(()=>{
+  //   injectBlocks(getBlockTree())
+  // },5000)
 })
 
 function showCode() {
@@ -75,9 +62,41 @@ function loadBlocks(json) {
   Blockly.serialization.workspaces.load(json, workspace)
 }
 
+function getBlockTree() {
+  toolboxJson.contents = []
+  toolboxJson.contents.unshift(threeBlocks, eventBlocks, getObjectBlocks(props.editor), ...baseBlocks)
+
+  const options = ref({
+    media: "/blockly_media",
+    grid: {
+      spacing: 25,
+      length: 3,
+      colour: "#ccc",
+      snap: true,
+    },
+    toolbox: toolboxJson,
+  })
+
+  if (!options.value.toolbox) {
+    options.value.toolbox = blocklyToolbox.value
+  }
+
+  return options
+}
+
+function injectBlocks(options){
+  
+  workspace = Blockly.inject(blocklyDiv.value, options.value)
+  
+}
+
+
+
 defineExpose({
   saveBlocks,
-  loadBlocks
+  loadBlocks,
+  getBlockTree,
+  injectBlocks
 })
 </script>
 

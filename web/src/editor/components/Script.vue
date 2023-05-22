@@ -53,6 +53,14 @@ function showCode(code) {
   // )
   props.editor.signals.scriptChanged.dispatch()
 }
+
+function injectBlocks() {
+  blocklyComponent.value.injectBlocks(blocklyComponent.value.getBlockTree())
+}
+
+defineExpose({
+  injectBlocks,
+})
 </script>
 
 <style scoped></style>
